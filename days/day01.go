@@ -26,7 +26,7 @@ func input() []int {
 func part01() int {
 	input := input()
 	count := 0
-	for i := 0; i < len(input) - 1; i++ {
+	for i := 0; i < len(input)-1; i++ {
 		if input[i+1] > input[i] {
 			count++
 		}
@@ -37,7 +37,7 @@ func part01() int {
 func part02() int {
 	input := input()
 	count := 0
-	for i := 0; i < len(input) - 3; i++ {
+	for i := 0; i < len(input)-3; i++ {
 		if sum(input[i+1:i+4]) > sum(input[i:i+3]) {
 			count++
 		}
