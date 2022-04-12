@@ -1,4 +1,4 @@
-package days
+package day01
 
 import (
 	"advent-of-code-2021/utils"
@@ -45,7 +45,7 @@ func part02() int {
 	return count
 }
 
-func Day01() {
+func Main() {
 	fmt.Println("Advent of Code 2021, Day 01")
 	fmt.Println(part01())
 	fmt.Println(part02())
