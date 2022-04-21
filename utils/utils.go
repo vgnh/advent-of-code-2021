@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 )
@@ -20,4 +21,12 @@ func ReadLines(filename string) []string {
 		lines = append(lines, strings.TrimSpace(scanner.Text()))
 	}
 	return lines
+}
+
+func ReadString(filename string) string {
+	file, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return string(file)
 }
