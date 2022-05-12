@@ -49,18 +49,10 @@ func allBoards() [][][]int {
 	return allBoards
 }
 
-func arraySum(array []int) int {
-	sum := 0
-	for _, num := range array {
-		sum += num
-	}
-	return sum
-}
-
 func checkWin(board [][]int) bool {
 	// Check rows
 	for _, row := range board {
-		if arraySum(row) == -5 {
+		if utils.Sum(row) == -5 {
 			return true
 		}
 	}
@@ -119,19 +111,10 @@ func part01() int {
 	return -1
 }
 
-func arrayContains(array []int, n int) bool {
-	for _, nums := range array {
-		if nums == n {
-			return true
-		}
-	}
-	return false
-}
-
 func sliceRemoveAll(fromSlice [][][]int, indexes []int) [][][]int {
 	var newSlice [][][]int
 	for i, item := range fromSlice {
-		if arrayContains(indexes, i) {
+		if utils.SliceContains(indexes, i) {
 			continue
 		}
 		newSlice = append(newSlice, item)

@@ -38,7 +38,7 @@ func part02() int {
 	input := input()
 	count := 0
 	for i := 0; i < len(input)-3; i++ {
-		if sum(input[i+1:i+4]) > sum(input[i:i+3]) {
+		if utils.Sum(input[i+1:i+4]) > utils.Sum(input[i:i+3]) {
 			count++
 		}
 	}
@@ -49,12 +49,4 @@ func Main() {
 	fmt.Println("Advent of Code 2021, Day 01")
 	fmt.Println(part01())
 	fmt.Println(part02())
-}
-
-func sum(a []int) int {
-	total := 0
-	for _, n := range a {
-		total += n
-	}
-	return total
 }
