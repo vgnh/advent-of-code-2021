@@ -1,15 +1,20 @@
 package utils
 
 import (
-	"bufio"
+	// "bufio"
 	"fmt"
 	"io/ioutil"
-	"os"
+	// "os"
 	"strings"
 )
 
 func ReadLines(filename string) []string {
-	file, err := os.Open(filename)
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return strings.Split(strings.TrimSpace(string(data)), "\n")
+	/* file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -20,15 +25,15 @@ func ReadLines(filename string) []string {
 	for scanner.Scan() {
 		lines = append(lines, strings.TrimSpace(scanner.Text()))
 	}
-	return lines
+	return lines */
 }
 
 func ReadString(filename string) string {
-	file, err := ioutil.ReadFile(filename)
+	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		fmt.Println(err)
 	}
-	return string(file)
+	return string(data)
 }
 
 type Number interface {
