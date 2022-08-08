@@ -7,14 +7,11 @@ import (
 	"strings"
 )
 
-const FILENAME string = "./inputs/day03.txt"
+const filename string = "./day03/input.txt"
 
-func binaryNumbers() []string {
-	return utils.ReadLines(FILENAME)
-}
+var binaryNumbers = utils.ReadLines(filename)
 
 func part01() int64 {
-	binaryNumbers := binaryNumbers()
 	gamma, epsilon := "", ""
 
 	newBinaries := make([]string, len(binaryNumbers[0]))
@@ -50,7 +47,6 @@ func filterOnCharPosition(array []string, position int, character string) []stri
 }
 
 func part02() int64 {
-	binaryNumbers := binaryNumbers()
 	generator, scrubber := int64(0), int64(0)
 	genList, scrubList := binaryNumbers, binaryNumbers
 

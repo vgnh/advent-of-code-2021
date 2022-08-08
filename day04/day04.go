@@ -8,23 +8,15 @@ import (
 	"strings"
 )
 
-const FILENAME string = "./inputs/day04.txt"
+const filename string = "./day04/input.txt"
 
-func input() []string {
-	return strings.Split(utils.ReadString(FILENAME), "\n\n")
-}
+var input = strings.Split(utils.ReadString(filename), "\n\n")
 
 func bingoNumbers() []int {
-	strs := strings.Split(strings.TrimSpace(input()[0]), ",")
-	nums := make([]int, len(strs))
-	for i, str := range strs {
-		nums[i], _ = strconv.Atoi(str)
-	}
-	return nums
+	return utils.MapToInt(strings.Split(strings.TrimSpace(input[0]), ","))
 }
 
 func allBoards() [][][]int {
-	input := input()
 	allBoards := make([][][]int, len(input[1:]))
 
 	for i, inputString := range input[1:] {
@@ -114,7 +106,7 @@ func part01() int {
 func sliceRemoveAll(fromSlice [][][]int, indexes []int) [][][]int {
 	var newSlice [][][]int
 	for i, item := range fromSlice {
-		if utils.SliceContains(indexes, i) {
+		if utils.Contains(indexes, i) {
 			continue
 		}
 		newSlice = append(newSlice, item)

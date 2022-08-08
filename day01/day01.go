@@ -3,28 +3,13 @@ package day01
 import (
 	"advent-of-code-2021/utils"
 	"fmt"
-	"strconv"
 )
 
-const FILENAME string = "./inputs/day01.txt"
+const filename = "./day01/input.txt"
 
-func input() []int {
-	strings := utils.ReadLines(FILENAME)
-
-	var inputs []int
-	for _, str := range strings {
-		num, err := strconv.Atoi(str)
-		if err != nil {
-			fmt.Println(err)
-		}
-		inputs = append(inputs, num)
-	}
-
-	return inputs
-}
+var input = utils.MapToInt(utils.ReadLines(filename))
 
 func part01() int {
-	input := input()
 	count := 0
 	for i := 0; i < len(input)-1; i++ {
 		if input[i+1] > input[i] {
@@ -35,7 +20,6 @@ func part01() int {
 }
 
 func part02() int {
-	input := input()
 	count := 0
 	for i := 0; i < len(input)-3; i++ {
 		if utils.Sum(input[i+1:i+4]) > utils.Sum(input[i:i+3]) {

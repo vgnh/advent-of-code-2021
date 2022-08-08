@@ -7,15 +7,13 @@ import (
 	"strings"
 )
 
-const FILENAME string = "./inputs/day02.txt"
+const filename string = "./day02/input.txt"
 
-func instructions() []string {
-	return utils.ReadLines(FILENAME)
-}
+var instructions = utils.ReadLines(filename)
 
 func part01() int {
 	horizontal, depth := 0, 0
-	for _, ins := range instructions() {
+	for _, ins := range instructions {
 		command := strings.Split(strings.TrimSpace(ins), " ")
 		value, _ := strconv.Atoi(command[1])
 		switch command[0] {
@@ -32,7 +30,7 @@ func part01() int {
 
 func part02() int {
 	horizontal, depth, aim := 0, 0, 0
-	for _, ins := range instructions() {
+	for _, ins := range instructions {
 		command := strings.Split(strings.TrimSpace(ins), " ")
 		value, _ := strconv.Atoi(command[1])
 		switch command[0] {
