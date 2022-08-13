@@ -17,5 +17,5 @@ func main() {
 	day03.Main()
 	day04.Main()
 
-	fmt.Printf("\nTime taken: %v\n", time.Since(start))
+	fmt.Printf("\nTime elapsed: %v\n", time.Since(start))
 }
