@@ -2,13 +2,13 @@ package utils
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 )
 
 func ReadLines(filename string) []string {
-	data, err := ioutil.ReadFile(filename)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -32,7 +32,7 @@ func ReadLines(filename string) []string {
 }
 
 func ReadString(filename string) string {
-	data, err := ioutil.ReadFile(filename)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Println(err)
 	}
