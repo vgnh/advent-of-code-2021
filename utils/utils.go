@@ -157,36 +157,6 @@ func IndexOf[T comparable](slice []T, item T) int {
 	return -1
 }
 
-type Stack[T any] []T
-
-func (s *Stack[T]) IsEmpty() bool {
-	return len(*s) == 0
-}
-
-func (s *Stack[T]) Clear() {
-	var newStack Stack[T]
-	*s = newStack
-}
-
-func (s *Stack[T]) Push(item T) {
-	*s = append(*s, item)
-}
-
-func (s *Stack[T]) Pop() (T, bool) {
-	if s.IsEmpty() {
-		var nope T
-		return nope, false
-	} else {
-		item := (*s)[len(*s)-1]
-		*s = (*s)[:len(*s)-1]
-		return item, true
-	}
-}
-
-func (s *Stack[T]) Peek() T {
-	return (*s)[len(*s)-1]
-}
-
 type Set[T comparable] map[T]struct{}
 
 func (s *Set[T]) Add(item T) {
@@ -212,4 +182,102 @@ func (s *Set[T]) RetainAll(slice []T) {
 			delete(*s, v)
 		}
 	}
+}
+
+type node[T any] struct {
+	data T
+	prev *node[T]
+	next *node[T]
+}
+
+type Deque[T any] struct {
+	head   *node[T]
+	tail   *node[T]
+	length int
+}
+
+func NewDeque[T any]() *Deque[T] {
+	var deque Deque[T]
+	return &deque
+}
+
+func (d *Deque[T]) Push(item T) {
+	newNode := &node[T]{
+		data: item,
+		prev: nil,
+		next: nil,
+	}
+
+	if d.length == 0 {
+		d.head = newNode
+		d.tail = newNode
+	} else {
+		newNode.prev = d.tail
+		d.tail.next = newNode
+		d.tail = newNode
+	}
+	d.length++
+}
+
+func (d *Deque[T]) Pop() (T, bool) {
+	if d.length == 0 {
+		var nope T
+		return nope, false
+	} else {
+		temp := d.tail
+		d.tail = d.tail.prev
+		if d.tail != nil {
+			d.tail.next = nil
+		} else {
+			d.head = nil
+		}
+		d.length--
+		return temp.data, true
+	}
+}
+
+func (d *Deque[T]) Peek() T {
+	return d.Back()
+}
+
+func (d *Deque[T]) Enqueue(item T) {
+	d.Push(item)
+}
+
+func (d *Deque[T]) Dequeue() (T, bool) {
+	if d.length == 0 {
+		var nope T
+		return nope, false
+	} else {
+		temp := d.head
+		d.head = d.head.next
+		if d.head != nil {
+			d.head.prev = nil
+		} else {
+			d.tail = nil
+		}
+		d.length--
+		return temp.data, true
+	}
+}
+
+func (d *Deque[T]) Front() T {
+	return d.head.data
+}
+
+func (d *Deque[T]) Back() T {
+	return d.tail.data
+}
+
+func (d *Deque[T]) Clear() {
+	var deque Deque[T]
+	*d = deque
+}
+
+func (d *Deque[T]) IsEmpty() bool {
+	return d.length == 0
+}
+
+func (d *Deque[T]) Len() int {
+	return d.length
 }
