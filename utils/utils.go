@@ -184,6 +184,20 @@ func (s *Set[T]) RetainAll(slice []T) {
 	}
 }
 
+type Stack[T any] interface {
+	Empty() bool
+	Peek() T
+	Pop() (T, bool)
+	Push(item T)
+}
+
+type Queue[T any] interface {
+	Empty() bool
+	Peek() T
+	Dequeue() (T, bool)
+	Enqueue(item T)
+}
+
 type node[T any] struct {
 	data T
 	prev *node[T]
@@ -212,39 +226,14 @@ func (d *Deque[T]) Push(item T) {
 		d.head = newNode
 		d.tail = newNode
 	} else {
-		newNode.prev = d.tail
-		d.tail.next = newNode
-		d.tail = newNode
+		newNode.next = d.head
+		d.head.prev = newNode
+		d.head = newNode
 	}
 	d.length++
 }
 
 func (d *Deque[T]) Pop() (T, bool) {
-	if d.length == 0 {
-		var nope T
-		return nope, false
-	} else {
-		temp := d.tail
-		d.tail = d.tail.prev
-		if d.tail != nil {
-			d.tail.next = nil
-		} else {
-			d.head = nil
-		}
-		d.length--
-		return temp.data, true
-	}
-}
-
-func (d *Deque[T]) Peek() T {
-	return d.Back()
-}
-
-func (d *Deque[T]) Enqueue(item T) {
-	d.Push(item)
-}
-
-func (d *Deque[T]) Dequeue() (T, bool) {
 	if d.length == 0 {
 		var nope T
 		return nope, false
@@ -261,21 +250,39 @@ func (d *Deque[T]) Dequeue() (T, bool) {
 	}
 }
 
-func (d *Deque[T]) Front() T {
+func (d *Deque[T]) Peek() T {
 	return d.head.data
 }
 
-func (d *Deque[T]) Back() T {
-	return d.tail.data
+func (d *Deque[T]) Enqueue(item T) {
+	newNode := &node[T]{
+		data: item,
+		prev: nil,
+		next: nil,
+	}
+
+	if d.length == 0 {
+		d.head = newNode
+		d.tail = newNode
+	} else {
+		newNode.prev = d.tail
+		d.tail.next = newNode
+		d.tail = newNode
+	}
+	d.length++
+}
+
+func (d *Deque[T]) Dequeue() (T, bool) {
+	return d.Pop()
+}
+
+func (d *Deque[T]) Empty() bool {
+	return d.length == 0
 }
 
 func (d *Deque[T]) Clear() {
 	var deque Deque[T]
 	*d = deque
-}
-
-func (d *Deque[T]) IsEmpty() bool {
-	return d.length == 0
 }
 
 func (d *Deque[T]) Len() int {
